@@ -1,0 +1,24 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Embedlur
+{
+    public class ProviderResolver : IProviderResolver
+    {
+        private List<IProvider> _providers; 
+
+        public ProviderResolver(IProviderDiscovery providerDiscovery)
+        {
+            _providers = providerDiscovery.GetAllProviders();
+        }
+
+        public IProvider Resolve(string url)
+        {
+            return _providers.FirstOrDefault(provider => provider.CanServeUrl(url));
+        }
+    }
+}

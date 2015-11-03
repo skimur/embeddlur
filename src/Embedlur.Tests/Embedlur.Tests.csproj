@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5B4DF4D3-4D5A-4D23-9CF7-5F040C8B330B}</ProjectGuid>
+    <ProjectGuid>{C3E80A3C-FD90-4F57-BE21-80BB13591B01}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Embedlur</RootNamespace>
-    <AssemblyName>Embedlur</AssemblyName>
+    <RootNamespace>Embedlur.Tests</RootNamespace>
+    <AssemblyName>Embedlur.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,8 +30,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="nunit.framework, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -44,23 +44,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EmbeddedResult.cs" />
-    <Compile Include="IEmbeddedResult.cs" />
-    <Compile Include="Internals\TinyIoC.cs" />
-    <Compile Include="IProvider.cs" />
-    <Compile Include="IProviderDiscovery.cs" />
-    <Compile Include="IProviderResolver.cs" />
-    <Compile Include="IRestService.cs" />
-    <Compile Include="OEmbedJsonResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ProviderDiscovery.cs" />
-    <Compile Include="ProviderResolver.cs" />
-    <Compile Include="Providers\BaseProvider.cs" />
-    <Compile Include="Providers\TwitterProvider.cs" />
-    <Compile Include="RestService.cs" />
+    <Compile Include="TwitterProviderTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Embedlur\Embedlur.csproj">
+      <Project>{5b4df4d3-4d5a-4d23-9cf7-5f040c8b330b}</Project>
+      <Name>Embedlur</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
