@@ -44,7 +44,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EmbeddedResult.cs" />
+    <Compile Include="EmbeddedResults.cs" />
+    <Compile Include="EmbedlurContext.cs" />
     <Compile Include="IEmbeddedResult.cs" />
     <Compile Include="Internals\TinyIoC.cs" />
     <Compile Include="IProvider.cs" />
@@ -57,6 +58,7 @@
     <Compile Include="ProviderResolver.cs" />
     <Compile Include="Providers\BaseProvider.cs" />
     <Compile Include="Providers\TwitterProvider.cs" />
+    <Compile Include="Providers\YouTubeProvider.cs" />
     <Compile Include="RestService.cs" />
   </ItemGroup>
   <ItemGroup>

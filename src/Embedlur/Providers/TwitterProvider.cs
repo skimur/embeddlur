@@ -16,12 +16,14 @@ namespace Embedlur.Providers
         private readonly Regex _ombededUrlPattern = new Regex("<link rel=\\\"alternate\\\" type=\\\"text/xml\\+oembed\\\" href=\\\"(([a-zA-Z0-9:\\/\\.\\?\\=])*)\\\"");
 
         public TwitterProvider(IRestService restService)
-            :base("https?://(?:www|mobile\\.)?twitter\\.com/(?:#!/)?[^/]+/status(?:es)?/(\\d+)/?$", "https?://t\\.co/[a-zA-Z0-9]+")
+            : base("https?://(?:www|mobile\\.)?twitter\\.com/(?:#!/)?[^/]+/status(?:es)?/(\\d+)/?$", "https?://t\\.co/[a-zA-Z0-9]+")
         {
             _restService = restService;
         }
 
-        public override IEmbeddedResult ProcessUrl(string url)
+        public override string Name { get { return "Twitter"; } }
+
+        protected override IEmbeddedResult ProcessUrl(string url)
         {
             var html = _restService.Get(url);
 
@@ -32,10 +34,20 @@ namespace Embedlur.Providers
 
             var oembeddedUrl = match.Groups[1].Value.Replace(".xml", ".json");
 
-            return new EmbeddedResult
-            {
-                Html = JsonConvert.DeserializeObject<OEmbedJsonResult>(_restService.Get(oembeddedUrl)).Html
-            };
+            var result = JsonConvert.DeserializeObject<OEmbedJsonResult>(_restService.Get(oembeddedUrl));
+
+            return new RichEmbeddedResult(result.Html, 
+                result.Width, 
+                result.Height,
+                result.Title, 
+                result.AuthorName, 
+                result.AuthorUrl, 
+                result.ProviderName,
+                result.ProviderUrl, 
+                result.CacheAge, 
+                result.ThumbnailUrl,
+                result.ThumbnailWidth, 
+                result.ThumbnailHeight);
         }
     }
 }

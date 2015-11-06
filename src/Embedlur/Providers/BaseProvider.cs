@@ -9,18 +9,20 @@ namespace Embedlur.Providers
 {
     public abstract class BaseProvider : IProvider
     {
-        private readonly List<string> _patterns;
+        private readonly Dictionary<string, Regex> _patterns;
 
         protected BaseProvider(params string[] patterns)
         {
-            _patterns = patterns.ToList();
+            _patterns = patterns.ToDictionary(x => x, x => new Regex(x));
         }
 
-        public List<string> Patterns { get { return _patterns.ToList(); } }
+        public abstract string Name { get; }
+
+        public List<string> Patterns { get { return _patterns.Keys.ToList(); } }
 
         public bool CanServeUrl(string url)
         {
-            return _patterns.Any(pattern => Regex.IsMatch(url, pattern));
+            return _patterns.Values.Any(pattern => pattern.IsMatch(url));
         }
 
         public IEmbeddedResult Embed(string url)
@@ -31,6 +33,25 @@ namespace Embedlur.Providers
             return ProcessUrl(url);
         }
 
-        public abstract IEmbeddedResult ProcessUrl(string url);
+        protected abstract IEmbeddedResult ProcessUrl(string url);
+
+        protected Match Match(string url, out int patternIndex)
+        {
+            int index = 0;
+
+            foreach (var key in _patterns.Keys)
+            {
+                var match = _patterns[key].Match(url);
+                if (match.Success)
+                {
+                    patternIndex = index;
+                    return match;
+                }
+                index++;
+            }
+
+            patternIndex = -1;
+            return null;
+        }
     }
 }

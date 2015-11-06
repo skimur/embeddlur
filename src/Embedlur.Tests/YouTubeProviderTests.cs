@@ -9,28 +9,28 @@ using NUnit.Framework;
 namespace Embedlur.Tests
 {
     [TestFixture]
-    public class TwitterProviderTests
+    public class YouTubeProviderTests
     {
         private IProvider _provider;
 
         [Test]
         public void Can_serve_urls()
         {
-            Assert.That(_provider.CanServeUrl("https://twitter.com/SHAQ/status/661263631045238784"), Is.True);
-            Assert.That(_provider.CanServeUrl("https://t.co/HxqtgzbUA9"), Is.True);
+            Assert.That(_provider.CanServeUrl("https://www.youtube.com/watch?v=xjS6SftYQaQ"), Is.True);
+            Assert.That(_provider.CanServeUrl("https://youtu.be/xjS6SftYQaQ"), Is.True);
         }
 
         [Test]
         public void Can_get_html()
         {
-            var result = _provider.Embed("https://t.co/HxqtgzbUA9") as IRichEmbeddedResult;
-            Assert.That(result.Html, Is.Not.Null.Or.Empty);
+            var result = _provider.Embed("https://www.youtube.com/watch?v=xjS6SftYQaQ");
+            result = _provider.Embed("https://youtu.be/xjS6SftYQaQ");
         }
 
         [SetUp]
         public void Setup()
         {
-            _provider = EmbedlurContext.Resolver.ResolveByName("Twitter");
+            _provider = EmbedlurContext.Resolver.ResolveByName("YouTube");
         }
     }
 }

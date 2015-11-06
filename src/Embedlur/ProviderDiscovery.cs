@@ -20,6 +20,7 @@ namespace Embedlur
         {
             var result = new List<IProvider>();
             result.Add(new TwitterProvider(_restService));
+            result.Add(new YouTubeProvider(_restService));
             return result;
         }
     }

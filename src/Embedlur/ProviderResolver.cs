@@ -20,5 +20,10 @@ namespace Embedlur
         {
             return _providers.FirstOrDefault(provider => provider.CanServeUrl(url));
         }
+
+        public IProvider ResolveByName(string name)
+        {
+            return _providers.FirstOrDefault(provider => provider.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase));
+        }
     }
 }

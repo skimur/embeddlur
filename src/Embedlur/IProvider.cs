@@ -12,6 +12,11 @@ namespace Embedlur
     public interface IProvider
     {
         /// <summary>
+        /// The name of this provider.
+        /// </summary>
+        string Name { get; }
+
+        /// <summary>
         /// All the patterns used to match urls against this provider.
         /// </summary>
         List<string> Patterns { get; }

@@ -26,13 +26,18 @@ namespace Embedlur.Web.Controllers
             if (string.IsNullOrEmpty(url))
             {
                 // for testing
-                url = "https://twitter.com/SHAQ/status/661263631045238784";
+                // twitter
+                //url = "https://twitter.com/SHAQ/status/661263631045238784";
+                // youtube
+                url = "https://www.youtube.com/watch?v=xjS6SftYQaQ";
             }
 
             var provider = _providerResolver.Resolve(url);
-
+            
             if(provider == null)
                 throw new Exception("The url has no provider that can handle it.");
+
+            ViewBag.ProviderName = provider.Name;
 
             var result = provider.Embed(url);
 
