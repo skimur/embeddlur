@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Embedlur.Web", "Embedlur.We
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Embedlur.Web.Test", "Embedlur.Web.Test\Embedlur.Web.Test.csproj", "{D1C7DE39-6974-4010-822D-ABD562ED9CE6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Embedlur.Web.Public", "Embedlur.Web.Public\Embedlur.Web.Public.csproj", "{720250A5-2685-407C-AB94-2F446C26E907}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{D1C7DE39-6974-4010-822D-ABD562ED9CE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D1C7DE39-6974-4010-822D-ABD562ED9CE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D1C7DE39-6974-4010-822D-ABD562ED9CE6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{720250A5-2685-407C-AB94-2F446C26E907}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{720250A5-2685-407C-AB94-2F446C26E907}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{720250A5-2685-407C-AB94-2F446C26E907}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{720250A5-2685-407C-AB94-2F446C26E907}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

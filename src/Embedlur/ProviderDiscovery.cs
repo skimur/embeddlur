@@ -9,18 +9,19 @@ namespace Embedlur
 {
     public class ProviderDiscovery : IProviderDiscovery
     {
-        private readonly IRestService _restService;
+        private readonly IRequestService _requestService;
 
-        public ProviderDiscovery(IRestService restService)
+        public ProviderDiscovery(IRequestService requestService)
         {
-            _restService = restService;
+            _requestService = requestService;
         }
 
         public List<IProvider> GetAllProviders()
         {
             var result = new List<IProvider>();
-            result.Add(new TwitterProvider(_restService));
-            result.Add(new YouTubeProvider(_restService));
+            result.Add(new TwitterProvider(_requestService));
+            result.Add(new YouTubeProvider(_requestService));
+            result.Add(new FlickrProvider(_requestService));
             return result;
         }
     }

@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Embedlur
 {
-    public interface IRestService
+    public interface IRequestService
     {
-        string Get(string url);
+        string Get(string url, string contentType = "application/json");
     }
 }

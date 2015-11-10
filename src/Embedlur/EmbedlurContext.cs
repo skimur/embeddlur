@@ -14,7 +14,7 @@ namespace Embedlur
         static EmbedlurContext()
         {
             Container = new TinyIoCContainer();
-            Container.Register<IRestService, RestService>().AsSingleton();
+            Container.Register<IRequestService, RequestService>().AsSingleton();
             Container.Register<IProviderDiscovery, ProviderDiscovery>().AsSingleton();
             Container.Register<IProviderResolver, ProviderResolver>().AsSingleton();
         }

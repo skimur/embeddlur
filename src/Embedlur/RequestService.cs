@@ -8,23 +8,21 @@ using System.Threading.Tasks;
 
 namespace Embedlur
 {
-    public class RestService : IRestService
+    public class RequestService : IRequestService
     {
-        public string Get(string url)
+        public string Get(string url, string contentType = "application/json")
         {
             var request = (HttpWebRequest)WebRequest.Create(url);
-            request.Accept = "application/json";
+            request.Accept = contentType;
             request.AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip;
             using (var response = (HttpWebResponse) request.GetResponse())
             {
                 switch (response.StatusCode)
                 {
-                    case HttpStatusCode.NotFound:
-                        throw new Exception("URL Not found");
-                    case HttpStatusCode.Unauthorized:
-                        throw new Exception("URL Unauthorize");
-                    case HttpStatusCode.NotImplemented:
-                        throw new Exception("OEmbed has not been implemented yet.");
+                    case HttpStatusCode.OK:
+                        break;
+                    default:
+                        throw new Exception("response code is not 200 (" + response.StatusCode + ")");
                 }
 
                 using (var responseStream = response.GetResponseStream())

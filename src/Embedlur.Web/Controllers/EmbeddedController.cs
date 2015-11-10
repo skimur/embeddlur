@@ -18,10 +18,10 @@ namespace Embedlur.Web.Controllers
 
         public EmbeddedController()
         {
-            _providerResolver = new ProviderResolver(new ProviderDiscovery(new RestService()));
+            _providerResolver = new ProviderResolver(new ProviderDiscovery(new RequestService()));
         }
 
-        public ActionResult Embedded(string url = null)
+        public ActionResult Embed(string url = null)
         {
             if (string.IsNullOrEmpty(url))
             {
@@ -31,6 +31,7 @@ namespace Embedlur.Web.Controllers
                 // youtube
                 url = "https://www.youtube.com/watch?v=xjS6SftYQaQ";
             }
+            //url = "https://www.youtube.com/watch?v=xjS6SftYQaQ";
 
             var provider = _providerResolver.Resolve(url);
             
@@ -44,7 +45,7 @@ namespace Embedlur.Web.Controllers
             if(result == null)
                 throw new Exception("Couldn't get the embedded result from the provider.");
 
-            return View(result);
+            return View("Providers/" + result.ProviderName, result);
         }
     }
 }

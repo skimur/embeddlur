@@ -10,22 +10,22 @@ namespace Embedlur.Providers
 {
     public class TwitterProvider : BaseProvider
     {
-        private readonly IRestService _restService;
+        private readonly IRequestService _requestService;
         // <link rel=\"alternate\" type=\"text/xml\+oembed\" href=\"([a-zA-Z0-9:\/\.\?\=])*\"
         //private readonly Regex _ombededUrlPattern = new Regex("<link rel=\\\"alternate\\\" type=\\\"text/xml\\+oembed\\\"\" href=\\\"([a-zA-Z0-9:\\/\\.\\?\\=])*\\\"");
         private readonly Regex _ombededUrlPattern = new Regex("<link rel=\\\"alternate\\\" type=\\\"text/xml\\+oembed\\\" href=\\\"(([a-zA-Z0-9:\\/\\.\\?\\=])*)\\\"");
 
-        public TwitterProvider(IRestService restService)
+        public TwitterProvider(IRequestService requestService)
             : base("https?://(?:www|mobile\\.)?twitter\\.com/(?:#!/)?[^/]+/status(?:es)?/(\\d+)/?$", "https?://t\\.co/[a-zA-Z0-9]+")
         {
-            _restService = restService;
+            _requestService = requestService;
         }
 
         public override string Name { get { return "Twitter"; } }
 
         protected override IEmbeddedResult ProcessUrl(string url)
         {
-            var html = _restService.Get(url);
+            var html = _requestService.Get(url);
 
             var match = _ombededUrlPattern.Match(html);
 
@@ -34,7 +34,7 @@ namespace Embedlur.Providers
 
             var oembeddedUrl = match.Groups[1].Value.Replace(".xml", ".json");
 
-            var result = JsonConvert.DeserializeObject<OEmbedJsonResult>(_restService.Get(oembeddedUrl));
+            var result = JsonConvert.DeserializeObject<OEmbedJsonResult>(_requestService.Get(oembeddedUrl));
 
             return new RichEmbeddedResult(result.Html, 
                 result.Width, 
@@ -42,7 +42,7 @@ namespace Embedlur.Providers
                 result.Title, 
                 result.AuthorName, 
                 result.AuthorUrl, 
-                result.ProviderName,
+                "Twitter",
                 result.ProviderUrl, 
                 result.CacheAge, 
                 result.ThumbnailUrl,

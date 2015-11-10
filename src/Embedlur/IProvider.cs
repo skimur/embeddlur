@@ -28,6 +28,11 @@ namespace Embedlur
         /// <returns></returns>
         bool CanServeUrl(string url);
 
+        /// <summary>
+        /// Embed the video url
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
         IEmbeddedResult Embed(string url);
     }
 }
