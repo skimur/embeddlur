@@ -166,6 +166,7 @@
     <Content Include="Views\Embedded\Providers\Twitter.cshtml" />
     <Content Include="Views\Embedded\Providers\Flickr.cshtml" />
     <Content Include="Views\Embedded\Providers\Vimeo.cshtml" />
+    <Content Include="Views\Embedded\Providers\Soundcloud.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Embedlur.Web\Embedlur.Web.csproj">

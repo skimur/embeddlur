@@ -23,6 +23,7 @@ namespace Embedlur
             result.Add(new YouTubeProvider(_requestService));
             result.Add(new FlickrProvider(_requestService));
             result.Add(new VimeoProvider(_requestService));
+            result.Add(new SoundcloudProvider(_requestService));
             return result;
         }
     }

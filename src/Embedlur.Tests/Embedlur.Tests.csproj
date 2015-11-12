@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="FlickrProviderTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SoundcloudProviderTests.cs" />
     <Compile Include="TwitterProviderTests.cs" />
     <Compile Include="VimeoProviderTests.cs" />
     <Compile Include="YouTubeProviderTests.cs" />
