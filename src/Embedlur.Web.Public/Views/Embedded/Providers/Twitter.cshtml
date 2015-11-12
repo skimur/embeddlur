@@ -2,7 +2,18 @@
 
 @section head 
 {
-
+    <style type="text/css">
+        body {
+            background: white;
+        }
+        body iframe {
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .twitter-tweet {
+            display: none;
+        }
+    </style>
 }
 
 @Html.Raw(Model.Html)

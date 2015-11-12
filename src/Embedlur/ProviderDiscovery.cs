@@ -22,6 +22,7 @@ namespace Embedlur
             result.Add(new TwitterProvider(_requestService));
             result.Add(new YouTubeProvider(_requestService));
             result.Add(new FlickrProvider(_requestService));
+            result.Add(new VimeoProvider(_requestService));
             return result;
         }
     }

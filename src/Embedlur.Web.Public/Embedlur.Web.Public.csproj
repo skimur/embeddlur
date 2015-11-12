@@ -164,6 +164,8 @@
     <Content Include="Views\Embedded\Embedded.cshtml" />
     <Content Include="Views\Embedded\Providers\YouTube.cshtml" />
     <Content Include="Views\Embedded\Providers\Twitter.cshtml" />
+    <Content Include="Views\Embedded\Providers\Flickr.cshtml" />
+    <Content Include="Views\Embedded\Providers\Vimeo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Embedlur.Web\Embedlur.Web.csproj">

@@ -59,6 +59,7 @@
     <Compile Include="Providers\BaseProvider.cs" />
     <Compile Include="Providers\FlickrProvider.cs" />
     <Compile Include="Providers\TwitterProvider.cs" />
+    <Compile Include="Providers\VimeoProvider.cs" />
     <Compile Include="Providers\YouTubeProvider.cs" />
     <Compile Include="RequestService.cs" />
   </ItemGroup>

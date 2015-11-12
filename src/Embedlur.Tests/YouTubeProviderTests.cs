@@ -21,10 +21,12 @@ namespace Embedlur.Tests
         }
 
         [Test]
-        public void Can_get_html()
+        public void Can_get_result()
         {
-            var result = _provider.Embed("https://www.youtube.com/watch?v=xjS6SftYQaQ");
-            result = _provider.Embed("https://youtu.be/xjS6SftYQaQ");
+            var result = _provider.Embed("https://www.youtube.com/watch?v=xjS6SftYQaQ") as IVideoEmbeddedResult;
+            Assert.That(result, Is.Not.Null);
+            result = _provider.Embed("https://youtu.be/xjS6SftYQaQ") as IVideoEmbeddedResult;
+            Assert.That(result, Is.Not.Null);
         }
 
         [SetUp]
