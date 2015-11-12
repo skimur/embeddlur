@@ -32,6 +32,11 @@ namespace Embedlur.Providers
 
             return ProcessUrl(url);
         }
+        
+        public virtual IEmbeddedResult LocalEmbed(string url)
+        {
+            return Embed(url);
+        }
 
         protected abstract IEmbeddedResult ProcessUrl(string url);
 

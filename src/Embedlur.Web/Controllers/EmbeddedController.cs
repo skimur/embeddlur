@@ -37,15 +37,13 @@ namespace Embedlur.Web.Controllers
             
             if(provider == null)
                 throw new Exception("The url has no provider that can handle it.");
-
-            ViewBag.ProviderName = provider.Name;
-
-            var result = provider.Embed(url);
+            
+            var result = provider.LocalEmbed(url);
 
             if(result == null)
                 throw new Exception("Couldn't get the embedded result from the provider.");
 
-            return View("Providers/" + result.ProviderName, result);
+            return View("Providers/" + provider.Name, result);
         }
     }
 }

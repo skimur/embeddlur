@@ -44,6 +44,7 @@ namespace Embedlur
             ThumbnailUrl = thumbnailUrl;
             ThumbnailWidth = thumbnailWidth;
             ThumbnailHeight = thumbnailHeight;
+            AdditionalData = new Dictionary<string, string>();
         }
 
         public string Type { get; }
@@ -67,6 +68,8 @@ namespace Embedlur
         public string ThumbnailWidth { get; }
 
         public string ThumbnailHeight { get; }
+
+        public Dictionary<string, string> AdditionalData { get; }
     }
 
     public class PhotoEmbeddedResult : EmbeddedResult, IPhotoEmbeddedResult

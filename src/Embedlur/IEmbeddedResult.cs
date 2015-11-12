@@ -76,6 +76,12 @@ namespace Embedlur
         /// The height of the optional thumbnail.If this parameter is present, thumbnail_url and thumbnail_width must also be present.
         /// </summary>
         string ThumbnailHeight { get; }
+
+        /// <summary>
+        /// Addtional data for this result.
+        /// Used internally.
+        /// </summary>
+        Dictionary<string, string> AdditionalData { get; } 
     }
 
     /// <summary>

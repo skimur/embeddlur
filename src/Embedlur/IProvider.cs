@@ -29,10 +29,19 @@ namespace Embedlur
         bool CanServeUrl(string url);
 
         /// <summary>
-        /// Embed the video url
+        /// Embed the url
         /// </summary>
         /// <param name="url"></param>
         /// <returns></returns>
         IEmbeddedResult Embed(string url);
+
+        /// <summary>
+        /// Prepare the item to be locally embeded.
+        /// This may contain a little bit more data on the object.
+        /// It may also take a little longer to perform.
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        IEmbeddedResult LocalEmbed(string url);
     }
 }

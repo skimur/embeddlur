@@ -24,6 +24,7 @@ namespace Embedlur
             result.Add(new FlickrProvider(_requestService));
             result.Add(new VimeoProvider(_requestService));
             result.Add(new SoundcloudProvider(_requestService));
+            result.Add(new GfycatProvider(_requestService));
             return result;
         }
     }
