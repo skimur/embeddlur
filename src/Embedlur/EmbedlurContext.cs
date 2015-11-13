@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Embedlur.Helpers;
 using TinyIoC;
 
 namespace Embedlur
@@ -17,6 +18,7 @@ namespace Embedlur
             Container.Register<IRequestService, RequestService>().AsSingleton();
             Container.Register<IProviderDiscovery, ProviderDiscovery>().AsSingleton();
             Container.Register<IProviderResolver, ProviderResolver>().AsSingleton();
+            Container.Register<IHtmlParser, HtmlParser>().AsSingleton();
         }
 
         public static IProviderResolver Resolver

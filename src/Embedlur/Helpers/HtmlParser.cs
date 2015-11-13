@@ -9,8 +9,8 @@ namespace Embedlur.Helpers
 {
     public class HtmlParser : IHtmlParser
     {
-        // <meta[\s]+((\S+)=["']((?:.(?!["']?\s+(?:\S+)=|[>"']))+.)["']+[\s]+)*/>
-        private readonly Regex _metaRegex = new Regex("<meta[\\s]+((\\S+)=[\"']((?:.(?![\"']?\\s+(?:\\S+)=|[>\"']))+.)[\"']+[\\s]+)*/>");
+        // <meta[\s]+((\S+)=["']((?:.(?!["']?\s+(?:\S+)=|[>"']))+.)["']+[\s]*)*/>
+        private readonly Regex _metaRegex = new Regex("<meta[\\s]+((\\S+)=[\"']((?:.(?![\"']?\\s+(?:\\S+)=|[>\"']))+.)[\"']+[\\s]*)*/>");
 
         public List<HtmlMetaTag> ParseMetaTags(string html)
         {
