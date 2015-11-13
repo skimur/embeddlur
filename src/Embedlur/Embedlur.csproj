@@ -46,6 +46,8 @@
   <ItemGroup>
     <Compile Include="EmbeddedResults.cs" />
     <Compile Include="EmbedlurContext.cs" />
+    <Compile Include="Helpers\HtmlParser.cs" />
+    <Compile Include="Helpers\IHtmlParser.cs" />
     <Compile Include="IEmbeddedResult.cs" />
     <Compile Include="Internals\TinyIoC.cs" />
     <Compile Include="IProvider.cs" />
@@ -59,6 +61,7 @@
     <Compile Include="Providers\BaseProvider.cs" />
     <Compile Include="Providers\FlickrProvider.cs" />
     <Compile Include="Providers\GfycatProvider.cs" />
+    <Compile Include="Providers\ImgurProvider.cs" />
     <Compile Include="Providers\SoundcloudProvider.cs" />
     <Compile Include="Providers\TwitterProvider.cs" />
     <Compile Include="Providers\VimeoProvider.cs" />
