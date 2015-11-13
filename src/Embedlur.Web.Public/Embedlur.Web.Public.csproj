@@ -137,6 +137,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\photoswipe\default-skin\default-skin.css" />
+    <Content Include="Content\photoswipe\default-skin\default-skin.png" />
+    <Content Include="Content\photoswipe\default-skin\default-skin.svg" />
+    <Content Include="Content\photoswipe\default-skin\preloader.gif" />
+    <Content Include="Content\photoswipe\photoswipe.css" />
+    <Content Include="Scripts\photoswipe-ui-default.js" />
+    <Content Include="Scripts\photoswipe.js" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

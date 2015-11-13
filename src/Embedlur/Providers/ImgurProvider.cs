@@ -60,8 +60,9 @@ namespace Embedlur.Providers
             if (twitterCardMeta.Content == "gallery")
             {
                 var match = Match(url);
+
                 var html = string.Format("<blockquote class=\"imgur-embed-pub\" lang=\"en\" data-id=\"a/{0}\"><a href=\"//imgur.com/a/{0}\">{1}</a></blockquote><script async src=\"//s.imgur.com/min/embed.js\" charset=\"utf-8\"></script>", match.Groups[2].Value, "title");
-                return new RichEmbeddedResult(html,
+                var result = new RichEmbeddedResult(html,
                     "540",
                     "500",
                     "",
@@ -69,9 +70,102 @@ namespace Embedlur.Providers
                     null,
                     "Imgur",
                     "http://imgur.com/");
+
+                var galleryItems = new List<ImgurGalleryItem>();
+
+                int? currentWidth = null;
+                int? currentHeight = null;
+
+                foreach (var openGraphImage in metaTags.Where(x => x.Property == "og:image" || x.Property == "og:image:width" || x.Property == "og:image:height")
+                    // the layout in the markup is image > width > height.
+                    // this reorders so dimensions are first.
+                    .Reverse())
+                {
+                    if (openGraphImage.Property == "og:image")
+                    {
+                        var openGraphImageUrl = openGraphImage.Content;
+                        if (string.IsNullOrEmpty(openGraphImageUrl))
+                        {
+                            currentWidth = null;
+                            currentHeight = null;
+                            continue;
+                        }
+
+                        if (!currentWidth.HasValue || !currentHeight.HasValue)
+                        {
+                            currentWidth = null;
+                            currentHeight = null;
+                            continue;
+                        }
+
+                        var galleryItem = new ImgurGalleryItem();
+                        galleryItem.Url = openGraphImageUrl;
+                        galleryItem.Width = currentWidth.Value;
+                        galleryItem.Height = currentHeight.Value;
+
+                        if (galleryItem.Url.EndsWith("?fb"))
+                            galleryItem.Url = galleryItem.Url.Substring(0, galleryItem.Url.Length - 3);
+
+                        if (galleryItem.Url.EndsWith(".gif"))
+                        {
+                            galleryItem.Type = ImgurGalleryItemType.Gif;
+                            galleryItem.Mp4 = galleryItem.Url.Substring(0, galleryItem.Url.Length - 3) + "mp4";
+                            galleryItem.Webm = galleryItem.Url.Substring(0, galleryItem.Url.Length - 3) + "webm";
+                        }
+                        else
+                        {
+                            galleryItem.Type = ImgurGalleryItemType.Photo;
+                        }
+
+                        galleryItems.Add(galleryItem);
+
+                        currentWidth = null;
+                        currentHeight = null;
+                    }
+                    else if (openGraphImage.Property == "og:image:width")
+                    {
+                        int temp;
+                        if (int.TryParse(openGraphImage.Content, out temp))
+                            currentWidth = temp;
+                    }
+                    else if (openGraphImage.Property == "og:image:height")
+                    {
+                        int temp;
+                        if (int.TryParse(openGraphImage.Content, out temp))
+                            currentHeight = temp;
+                    }
+                }
+
+                if (galleryItems.Count > 0)
+                {
+                    result.AdditionalData["Items"] = galleryItems;
+                }
+
+                return result;
             }
 
             return null;
+        }
+
+        public class ImgurGalleryItem
+        {
+            public ImgurGalleryItemType Type { get; set; }
+
+            public string Url { get; set; }
+
+            public string Mp4 { get; set; }
+
+            public string Webm { get; set; }
+
+            public int Width { get; set; }
+
+            public int Height { get; set; }
+        }
+
+        public enum ImgurGalleryItemType
+        {
+            Photo,
+            Gif
         }
     }
 }

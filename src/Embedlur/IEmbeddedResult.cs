@@ -81,7 +81,7 @@ namespace Embedlur
         /// Addtional data for this result.
         /// Used internally.
         /// </summary>
-        Dictionary<string, string> AdditionalData { get; } 
+        Dictionary<string, object> AdditionalData { get; } 
     }
 
     /// <summary>

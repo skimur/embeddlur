@@ -33,17 +33,17 @@
 
     if (Model.AdditionalData.ContainsKey("Mp4"))
     {
-        mp4 = Model.AdditionalData["Mp4"];
+        mp4 = Model.AdditionalData["Mp4"].ToString();
     }
 
     if (Model.AdditionalData.ContainsKey("Webm"))
     {
-        webm = Model.AdditionalData["Webm"];
+        webm = Model.AdditionalData["Webm"].ToString();
     }
 
     if (Model.AdditionalData.ContainsKey("Poster"))
     {
-        poster = Model.AdditionalData["Poster"];
+        poster = Model.AdditionalData["Poster"].ToString();
     }
 
     bool useLocalPlayer = !string.IsNullOrEmpty(mp4)
