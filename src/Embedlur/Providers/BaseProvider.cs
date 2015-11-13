@@ -58,5 +58,11 @@ namespace Embedlur.Providers
             patternIndex = -1;
             return null;
         }
+
+        protected Match Match(string url)
+        {
+            int index;
+            return Match(url, out index);
+        }
     }
 }

@@ -42,6 +42,11 @@ namespace Embedlur.Tests
             Assert.That(result[1].Name, Is.EqualTo("name2"));
             Assert.That(result[1].Content, Is.EqualTo("content2"));
             Assert.That(result[1].Property, Is.Null.Or.Empty);
+            
+            result = _parser.ParseMetaTags("<meta name=\"twitter:card\" content=\"photo\"/>");
+            Assert.That(result[0].Content, Is.EqualTo("photo"));
+            Assert.That(result[0].Name, Is.EqualTo("twitter:card"));
+            Assert.That(result[0].Property, Is.Null.Or.Empty);
         }
 
         [SetUp]

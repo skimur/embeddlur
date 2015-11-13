@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Embedlur.Helpers;
 using Embedlur.Providers;
 
 namespace Embedlur
@@ -10,10 +11,12 @@ namespace Embedlur
     public class ProviderDiscovery : IProviderDiscovery
     {
         private readonly IRequestService _requestService;
+        private readonly IHtmlParser _htmlParser;
 
-        public ProviderDiscovery(IRequestService requestService)
+        public ProviderDiscovery(IRequestService requestService, IHtmlParser htmlParser)
         {
             _requestService = requestService;
+            _htmlParser = htmlParser;
         }
 
         public List<IProvider> GetAllProviders()
@@ -25,6 +28,7 @@ namespace Embedlur
             result.Add(new VimeoProvider(_requestService));
             result.Add(new SoundcloudProvider(_requestService));
             result.Add(new GfycatProvider(_requestService));
+            result.Add(new ImgurProvider(_htmlParser, _requestService));
             return result;
         }
     }

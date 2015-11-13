@@ -168,6 +168,7 @@
     <Content Include="Views\Embedded\Providers\Vimeo.cshtml" />
     <Content Include="Views\Embedded\Providers\Soundcloud.cshtml" />
     <Content Include="Views\Embedded\Providers\Gfycat.cshtml" />
+    <Content Include="Views\Embedded\Providers\Imgur.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Embedlur.Web\Embedlur.Web.csproj">

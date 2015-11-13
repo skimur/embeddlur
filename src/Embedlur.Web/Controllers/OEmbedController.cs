@@ -20,7 +20,7 @@ namespace Embedlur.Web.Controllers
 
         public OEmbedController()
         {
-            _providerResolver = new ProviderResolver(new ProviderDiscovery(new RequestService()));
+            _providerResolver = EmbedlurContext.Resolver;
         }
 
         public ActionResult Query(string url)

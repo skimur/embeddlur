@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using Embedlur.Helpers;
 
 namespace Embedlur.Web.Controllers
 {
@@ -18,7 +19,7 @@ namespace Embedlur.Web.Controllers
 
         public EmbeddedController()
         {
-            _providerResolver = new ProviderResolver(new ProviderDiscovery(new RequestService()));
+            _providerResolver = EmbedlurContext.Resolver;
         }
 
         public ActionResult Embed(string url = null)
