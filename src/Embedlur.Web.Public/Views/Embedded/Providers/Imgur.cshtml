@@ -6,10 +6,7 @@
     var richResult = Model as IRichEmbeddedResult;
     var photoResult = Model as IPhotoEmbeddedResult;
 
-    if (richResult == null && photoResult == null)
-    {
-        throw new Exception("Invalid type");
-    }
+    if (richResult == null && photoResult == null) { throw new Exception("Invalid type"); }
 
     var galleryItems = Model.AdditionalData.ContainsKey("Items") ? (List<ImgurProvider.ImgurGalleryItem>)Model.AdditionalData["Items"] : null;
 }
@@ -28,6 +25,18 @@
 
         body {
             overflow: hidden;
+            height: 100%;
+        }
+
+        .video-wrap {
+            padding-top: 44px;
+            padding-bottom: 44px;
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+        .video-wrap video {
+            width: 100%;
             height: 100%;
         }
 
@@ -152,41 +161,21 @@
         // build items array
         var items = [
             @foreach (var galleryItem in galleryItems)
+            {
+                @RenderJsonGalleryItem(galleryItem)
+                if (galleryItems.IndexOf(galleryItem) != galleryItems.Count - 1)
                 {
-                    if (galleryItem.Type == ImgurProvider.ImgurGalleryItemType.Gif)
-                    {
-
-                    }else if (galleryItem.Type == ImgurProvider.ImgurGalleryItemType.Photo)
-                    {
-                        <text>
-                        {
-                            src: '@galleryItem.Url',
-                            w: @galleryItem.Width,
-                            h: @galleryItem.Height
-                        }
-                        </text>
-                        if (galleryItems.IndexOf(galleryItem) != galleryItems.Count - 1)
-                        {
-                            <text>,</text>
-                        }
-                    }
+                    <text>,</text>
                 }
+            }
         ];
 
         var options = {
-            index: 0,
-            pinchToClose: false,
-            closeOnScroll: false,
-            closeOnVerticalDrag: false,
-            escKey: false,
-            closeElClasses: []
+            index: 0
         };
 
         // Initializes and opens PhotoSwipe
         var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
-        gallery.onTapRelease = function () {
-            console.log("overrr");
-        }
         gallery.init();
     </script>
 }
@@ -195,14 +184,23 @@ else if (richResult != null)
     <div class="outer">
         <div class="middle">
             <div class="inner">
-
                 @Html.Raw(richResult.Html)
-
             </div>
         </div>
     </div>
 }
-else if (photoResult != null)
+else
 {
     <img src="@photoResult.Url" />
+}
+
+@helper RenderJsonGalleryItem(ImgurProvider.ImgurGalleryItem item)
+{
+    <text>
+        {
+        src: '@item.Url',
+        w: @item.Width,
+        h: @item.Height
+        }
+    </text>
 }

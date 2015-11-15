@@ -966,17 +966,23 @@ var publicMethods = {
 	},
 
 	// Closes the gallery, then destroy it
-	close: function() {
-		if(!_isOpen) {
-			return;
-		}
+	close: function () {
 
-		_isOpen = false;
-		_isDestroying = true;
-		_shout('close');
-		_unbindEvents();
+	    // temporary hack to not allow the instance to be closed.
+	    // for the most part, we always want the slider open.
+        // if this changed, we will have to make this configurable.
+	    return;
 
-		_showOrHide( self.currItem, null, true, self.destroy);
+		//if(!_isOpen) {
+		//	return;
+		//}
+
+		//_isOpen = false;
+		//_isDestroying = true;
+		//_shout('close');
+		//_unbindEvents();
+
+		//_showOrHide( self.currItem, null, true, self.destroy);
 	},
 
 	// destroys gallery (unbinds events, cleans up intervals and timeouts to avoid memory leaks)
