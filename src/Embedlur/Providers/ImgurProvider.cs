@@ -13,7 +13,7 @@ namespace Embedlur.Providers
         private readonly IRequestService _requestService;
 
         public ImgurProvider(IHtmlParser htmlParser, IRequestService requestService)
-            :base("http://imgur\\.com/(gallery/)?([0-9a-zA-Z]+)")
+            : base("https?://imgur\\.com/(gallery/)?([0-9a-zA-Z]+)", "https?://i\\.imgur\\.com/([0-9a-zA-Z]+)")
         {
             _htmlParser = htmlParser;
             _requestService = requestService;
@@ -23,6 +23,20 @@ namespace Embedlur.Providers
 
         protected override IEmbeddedResult ProcessUrl(string url)
         {
+            int matchIndex;
+            var match = Match(url, out matchIndex);
+
+            if (matchIndex == 1)
+            {
+                // this is a directly link to an image.
+                // let's get the real url so that we can render the image as a propert imgur image.
+                url = "http://imgur.com/gallery/" + match.Groups[1].Value;
+                match = Match(url);
+            }
+
+
+            var imgurId = match.Groups[2].Value;
+            
             var responseHtml = _requestService.Get(url, "text/html");
 
             var metaTags = _htmlParser.ParseMetaTags(responseHtml);
@@ -45,23 +59,43 @@ namespace Embedlur.Providers
                 if (twitterImgSrcHeightMeta == null) return null;
                 if (string.IsNullOrEmpty(twitterImgSrcHeightMeta.Content)) return null;
 
-                var openGraphTitleMeta = metaTags.FirstOrDefault(x => x.Name == "og:title");
+                var openGraphTitleMeta = metaTags.FirstOrDefault(x => x.Property == "og:title");
 
-                return new PhotoEmbeddedResult(twitterImgSrcMeta.Content, 
-                    twitterImgSrcWidthMeta.Content, 
+                var result = new PhotoEmbeddedResult(twitterImgSrcMeta.Content,
+                    twitterImgSrcWidthMeta.Content,
                     twitterImgSrcHeightMeta.Content,
                     openGraphTitleMeta != null ? openGraphTitleMeta.Content : null,
                     "http://imgur.com/",
                     null,
                     "Imgur",
                     "http://imgur.com/");
+
+                // attempt to add the image as a gallery item so that the image appears and fancy-like.
+                int width;
+                int height;
+                if (!int.TryParse(twitterImgSrcWidthMeta.Content, out width))
+                    return result;
+                if (!int.TryParse(twitterImgSrcHeightMeta.Content, out height))
+                    return result;
+                result.AdditionalData["Items"] = new List<ImgurGalleryItem>
+                {
+                    new ImgurGalleryItem
+                    {
+                        Url = result.Url,
+                        Width = width,
+                        Height = height,
+                        Type = ImgurGalleryItemType.Photo
+                    }
+                };
+
+                return result;
             }
 
             if (twitterCardMeta.Content == "gallery")
             {
-                var match = Match(url);
+                var openGraphTitleMeta = metaTags.FirstOrDefault(x => x.Property == "og:title");
 
-                var html = string.Format("<blockquote class=\"imgur-embed-pub\" lang=\"en\" data-id=\"a/{0}\"><a href=\"//imgur.com/a/{0}\">{1}</a></blockquote><script async src=\"//s.imgur.com/min/embed.js\" charset=\"utf-8\"></script>", match.Groups[2].Value, "title");
+                var html = string.Format("<blockquote class=\"imgur-embed-pub\" lang=\"en\" data-id=\"a/{0}\"><a href=\"//imgur.com/a/{0}\">{1}</a></blockquote><script async src=\"//s.imgur.com/min/embed.js\" charset=\"utf-8\"></script>", imgurId, openGraphTitleMeta != null ? openGraphTitleMeta.Content : null);
                 var result = new RichEmbeddedResult(html,
                     "540",
                     "500",
@@ -140,6 +174,50 @@ namespace Embedlur.Providers
                 {
                     result.AdditionalData["Items"] = galleryItems;
                 }
+
+                return result;
+            }
+
+            if (twitterCardMeta.Content == "player")
+            {
+                var twitterPlayerWidthMeta = metaTags.FirstOrDefault(x => x.Name == "twitter:player:width");
+                if (twitterPlayerWidthMeta == null) return null;
+                if (string.IsNullOrEmpty(twitterPlayerWidthMeta.Content)) return null;
+
+                var twitterPlayerHeightMeta = metaTags.FirstOrDefault(x => x.Name == "twitter:player:height");
+                if (twitterPlayerHeightMeta == null) return null;
+                if (string.IsNullOrEmpty(twitterPlayerHeightMeta.Content)) return null;
+                
+                var openGraphTitleMeta = metaTags.FirstOrDefault(x => x.Property == "og:title");
+
+                var result = new PhotoEmbeddedResult(string.Format("https://i.imgur.com/{0}.gif", imgurId),
+                    twitterPlayerWidthMeta.Content,
+                    twitterPlayerHeightMeta.Content,
+                    openGraphTitleMeta != null ? openGraphTitleMeta.Content : null,
+                    "http://imgur.com/",
+                    null,
+                    "Imgur",
+                    "http://imgur.com/");
+
+                // attempt to add the image as a gallery item so that the image appears and fancy-like.
+                int width;
+                int height;
+                if (!int.TryParse(twitterPlayerWidthMeta.Content, out width))
+                    return result;
+                if (!int.TryParse(twitterPlayerHeightMeta.Content, out height))
+                    return result;
+                result.AdditionalData["Items"] = new List<ImgurGalleryItem>
+                {
+                    new ImgurGalleryItem
+                    {
+                        Url = result.Url,
+                        Mp4 = result.Url.Substring(0, result.Url.Length - 3) + "mp4",
+                        Webm = result.Url.Substring(0, result.Url.Length - 3) + "webm",
+                        Width = width,
+                        Height = height,
+                        Type = ImgurGalleryItemType.Gif
+                    }
+                };
 
                 return result;
             }

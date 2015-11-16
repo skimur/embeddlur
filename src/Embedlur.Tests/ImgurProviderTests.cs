@@ -17,6 +17,7 @@ namespace Embedlur.Tests
         {
             Assert.That(_provider.CanServeUrl("http://imgur.com/gallery/lLQhNd9"), Is.True);
             Assert.That(_provider.CanServeUrl("http://imgur.com/lLQhNd9"), Is.True);
+            Assert.That(_provider.CanServeUrl("https://i.imgur.com/CshzTbj.jpg"), Is.True);
         }
 
         [Test]
@@ -25,6 +26,10 @@ namespace Embedlur.Tests
             var result = _provider.Embed("http://imgur.com/gallery/lLQhNd9") as IPhotoEmbeddedResult;
             Assert.That(result, Is.Not.Null);
             Assert.That(result.Url, Is.EqualTo("https://i.imgur.com/lLQhNd9.jpg"));
+
+            result = _provider.Embed("https://i.imgur.com/CshzTbj.jpg") as IPhotoEmbeddedResult;
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.Url, Is.EqualTo("https://i.imgur.com/CshzTbj.jpg"));
         }
 
         [Test]
