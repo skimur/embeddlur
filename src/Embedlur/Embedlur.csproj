@@ -58,9 +58,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProviderDiscovery.cs" />
     <Compile Include="ProviderResolver.cs" />
+    <Compile Include="Providers\BaseOEmbedProvider.cs" />
     <Compile Include="Providers\BaseProvider.cs" />
     <Compile Include="Providers\FlickrProvider.cs" />
     <Compile Include="Providers\GfycatProvider.cs" />
+    <Compile Include="Providers\HuluProvider.cs" />
     <Compile Include="Providers\ImgurProvider.cs" />
     <Compile Include="Providers\SoundcloudProvider.cs" />
     <Compile Include="Providers\TwitterProvider.cs" />

@@ -29,6 +29,7 @@ namespace Embedlur
             result.Add(new SoundcloudProvider(_requestService));
             result.Add(new GfycatProvider(_requestService));
             result.Add(new ImgurProvider(_htmlParser, _requestService));
+            result.Add(new HuluProvider(_requestService));
             return result;
         }
     }

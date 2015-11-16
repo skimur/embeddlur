@@ -52,6 +52,7 @@
     <Compile Include="SoundcloudProviderTests.cs" />
     <Compile Include="TwitterProviderTests.cs" />
     <Compile Include="VimeoProviderTests.cs" />
+    <Compile Include="HuluProviderTests.cs" />
     <Compile Include="YouTubeProviderTests.cs" />
   </ItemGroup>
   <ItemGroup>
