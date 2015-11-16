@@ -17,7 +17,12 @@ namespace Embedlur.Web.Public
                 name: "OEmbed",
                 url: "oembed",
                 defaults: new {controller = "OEmbed", action = "Query"});
-            
+
+            routes.MapRoute(
+                name: "Image",
+                url: "image",
+                defaults: new { controller = "Embedded", action = "Image" });
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}",

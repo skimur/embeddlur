@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Embedlur.Helpers;
+using Embedlur.Web.Models;
 
 namespace Embedlur.Web.Controllers
 {
@@ -31,8 +32,9 @@ namespace Embedlur.Web.Controllers
                 //url = "https://twitter.com/SHAQ/status/661263631045238784";
                 // youtube
                 url = "https://www.youtube.com/watch?v=xjS6SftYQaQ";
+                // imgur video gallery
+                url = "http://imgur.com/gallery/p3MmC";
             }
-            //url = "https://www.youtube.com/watch?v=xjS6SftYQaQ";
 
             var provider = _providerResolver.Resolve(url);
             
@@ -45,6 +47,11 @@ namespace Embedlur.Web.Controllers
                 throw new Exception("Couldn't get the embedded result from the provider.");
 
             return View("Providers/" + provider.Name, result);
+        }
+
+        public ActionResult Image(string url, int width, int height)
+        {
+            return View(new ImageModel {ImageUrl = url, Width = width, Height = height});
         }
     }
 }

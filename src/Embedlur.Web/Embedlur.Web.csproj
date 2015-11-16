@@ -74,6 +74,7 @@
   <ItemGroup>
     <Compile Include="Controllers\EmbeddedController.cs" />
     <Compile Include="Controllers\OEmbedController.cs" />
+    <Compile Include="Models\ImageModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
