@@ -199,8 +199,8 @@ else
     <text>
         {
         src: '@item.Url',
-        w: @item.Width,
-        h: @item.Height
+        w: @(item.Type == ImgurProvider.ImgurGalleryItemType.Gif ? item.Width * 2 : item.Width),
+        h: @(item.Type == ImgurProvider.ImgurGalleryItemType.Gif ? item.Height * 2 : item.Height)
         }
     </text>
 }
