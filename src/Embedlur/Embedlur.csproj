@@ -65,6 +65,7 @@
     <Compile Include="Providers\HuluProvider.cs" />
     <Compile Include="Providers\ImgurProvider.cs" />
     <Compile Include="Providers\SoundcloudProvider.cs" />
+    <Compile Include="Providers\TedProvider.cs" />
     <Compile Include="Providers\TwitterProvider.cs" />
     <Compile Include="Providers\VimeoProvider.cs" />
     <Compile Include="Providers\YouTubeProvider.cs" />

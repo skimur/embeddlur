@@ -177,6 +177,7 @@
     <Content Include="Views\Embedded\Providers\Gfycat.cshtml" />
     <Content Include="Views\Embedded\Providers\Imgur.cshtml" />
     <Content Include="Views\Embedded\Providers\Hulu.cshtml" />
+    <Content Include="Views\Embedded\Providers\Ted.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Embedlur.Web\Embedlur.Web.csproj">

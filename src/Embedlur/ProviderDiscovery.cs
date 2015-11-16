@@ -30,6 +30,7 @@ namespace Embedlur
             result.Add(new GfycatProvider(_requestService));
             result.Add(new ImgurProvider(_htmlParser, _requestService));
             result.Add(new HuluProvider(_requestService));
+            result.Add(new TedProvider(_requestService));
             return result;
         }
     }
